@@ -27,8 +27,6 @@ class AddCase : Fragment(R.layout.add_case) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.calendarView.visibility = View.INVISIBLE
-
         binding.closeButton.setOnClickListener {
             val fragmentTransaction = parentFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_view, MainFragment())
@@ -37,13 +35,21 @@ class AddCase : Fragment(R.layout.add_case) {
 
         binding.switchDate.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
-                println("IsChecked")
-                binding.calendarView.visibility = View.VISIBLE
+                binding.calendarLayout.visibility = View.VISIBLE
                 binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                     binding.dateEditField.text = "$dayOfMonth.$month.$year"
                 }
+
+                binding.textOk.setOnClickListener {
+                    binding.calendarLayout.visibility = View.INVISIBLE
+                }
+            } else {
+                binding.calendarLayout.visibility = View.INVISIBLE
+                binding.dateEditField.text = null
             }
         }
+
+
     }
 
     override fun onDestroyView() {
