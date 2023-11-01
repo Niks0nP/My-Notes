@@ -1,7 +1,7 @@
 package com.example.viewhomework
 
 data class TodoItem(
-    val id: String,
+    val id: Int,
     val caseText: String, // Текст дела
     val importanceText: String, // Важность дела
     val deadline: String, // Дедлайн выполнения
