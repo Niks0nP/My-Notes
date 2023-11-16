@@ -22,8 +22,7 @@ class TodoItemsRepository {
             deadline = deadline,
             execVal = false,
             dateCreate = dateCreate))
-
     }
 
-
+// Класс сохранения данных
 }
