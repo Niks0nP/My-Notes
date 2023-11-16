@@ -12,12 +12,16 @@ class MainFragment : Fragment(R.layout.main_screen) {
 
     private var _binding: MainScreenBinding? = null
     private val binding get() = _binding!!
+    private val todoItemsRepository: TodoItemsRepository?
+        get() = (activity?.applicationContext as? App)?.todoItemsRepository
 
-    private val toDoList : List<String> = arrayListOf(
-        "Сделать домашнее задание",
-        "Покормить кота",
-        "Убрать в комнате",
-        "Настя леди баг")
+    private lateinit var myRecyclerAdapter: MyRecyclerAdapter
+
+//    private val toDoList : List<String> = arrayListOf(
+//        "Сделать домашнее задание",
+//        "Покормить кота",
+//        "Убрать в комнате",
+//        "Настя леди баг")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +30,7 @@ class MainFragment : Fragment(R.layout.main_screen) {
     ): View? {
         _binding = MainScreenBinding.inflate(inflater, container, false)
         val view = binding.root
+        myRecyclerAdapter = MyRecyclerAdapter()
         return view
     }
 
@@ -39,8 +44,13 @@ class MainFragment : Fragment(R.layout.main_screen) {
         }
 
         binding.myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val myRecyclerAdapter = MyRecyclerAdapter(toDoList)
+        myRecyclerAdapter.data = todoItemsRepository?.getList() ?: emptyList()
         binding.myRecyclerView.adapter = myRecyclerAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myRecyclerAdapter.data = todoItemsRepository?.getList() ?: emptyList()
     }
 
     override fun onDestroyView() {

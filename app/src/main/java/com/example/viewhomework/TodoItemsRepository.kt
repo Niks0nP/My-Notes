@@ -5,19 +5,24 @@ class TodoItemsRepository {
     private var cases = mutableListOf<TodoItem>()
     private var index : Int = -1
 
-    fun getList() {
-
+    fun getList(): List<TodoItem> {
+        return cases
     }
 
-    fun addCase(caseText: String,
+    fun addCase(textCase: String,
                 importance: String,
                 deadline: String,
-                createDate: String) {
+                dateCreate: String) {
         index += 1
 
-
-
+        cases.add(TodoItem(
+            id = index,
+            caseText = textCase,
+            importanceText = importance,
+            deadline = deadline,
+            execVal = false,
+            dateCreate = dateCreate))
     }
 
-
+// Класс сохранения данных
 }

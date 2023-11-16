@@ -6,18 +6,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MyRecyclerAdapter(private val list: List<String>) :
+class MyRecyclerAdapter() :
     RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
-        init {
-            textView = view.findViewById(R.id.text_task)
+    var data: List<TodoItem> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
         }
+
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//        val textView: TextView
+//        init {
+//            textView = view.findViewById(R.id.text_task)
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        println("onCreateView")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.case_cell, parent, false)
 
@@ -26,11 +31,16 @@ class MyRecyclerAdapter(private val list: List<String>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        println("onBindView")
-        holder.textView.text = list[position]
+        val case = data[position]
+        val context = holder.itemView.context
+
+        with(holder.itemView){
+            findViewById<TextView>(R.id.text_task).text = case.caseText
+        }
+//        holder.textView.text = list[position]
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = data.size
 
 
 }
