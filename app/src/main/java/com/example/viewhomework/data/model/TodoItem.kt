@@ -1,4 +1,4 @@
-package com.example.viewhomework
+package com.example.viewhomework.data.model
 
 data class TodoItem(
     val id: Int,

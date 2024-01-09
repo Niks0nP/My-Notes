@@ -1,4 +1,6 @@
-package com.example.viewhomework
+package com.example.viewhomework.data.repository
+
+import com.example.viewhomework.data.model.TodoItem
 
 class TodoItemsRepository {
 
@@ -15,13 +17,15 @@ class TodoItemsRepository {
                 dateCreate: String) {
         index += 1
 
-        cases.add(TodoItem(
+        cases.add(
+            TodoItem(
             id = index,
             caseText = textCase,
             importanceText = importance,
             deadline = deadline,
             execVal = false,
-            dateCreate = dateCreate))
+            dateCreate = dateCreate)
+        )
     }
 
 // Класс сохранения данных

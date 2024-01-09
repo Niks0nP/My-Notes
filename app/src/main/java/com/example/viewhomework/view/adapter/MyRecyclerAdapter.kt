@@ -1,10 +1,12 @@
-package com.example.viewhomework
+package com.example.viewhomework.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.viewhomework.R
+import com.example.viewhomework.data.model.TodoItem
 
 class MyRecyclerAdapter() :
     RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {

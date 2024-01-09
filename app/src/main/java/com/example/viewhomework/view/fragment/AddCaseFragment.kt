@@ -1,18 +1,18 @@
-package com.example.viewhomework
+package com.example.viewhomework.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.viewhomework.R
+import com.example.viewhomework.data.repository.TodoItemsRepository
 import com.example.viewhomework.databinding.AddCaseBinding
+import com.example.viewhomework.view.App
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Calendar
 
-class AddCase : Fragment(R.layout.add_case) {
+class AddCaseFragment : Fragment() {
 
     private var _binding: AddCaseBinding? = null
     private val binding get() = _binding!!
@@ -26,8 +26,7 @@ class AddCase : Fragment(R.layout.add_case) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = AddCaseBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +49,7 @@ class AddCase : Fragment(R.layout.add_case) {
             if (isChecked){
                 binding.calendarLayout.visibility = View.VISIBLE
                 binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    binding.dateEditField.text = "$dayOfMonth.$month.$year"
+                    binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
                     deadline = "$dayOfMonth.$month.$year"
                 }
 
