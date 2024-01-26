@@ -1,32 +1,43 @@
 package com.example.viewhomework.data.repository
 
-import com.example.viewhomework.data.model.TodoItem
+import androidx.lifecycle.LiveData
+import com.example.viewhomework.data.model.dao.NotesDao
+import com.example.viewhomework.data.model.entityDB.NotesEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class TodoItemsRepository {
+class TodoItemsRepository(private val notesDao: NotesDao) {
 
-    private var cases = mutableListOf<TodoItem>()
-    private var index : Int = -1
+    val readAllData: LiveData<List<NotesEntity>> = notesDao.readAllNotesData()
 
-    fun getList(): List<TodoItem> {
-        return cases
+//    private var cases = mutableListOf<TodoItem>()
+
+//    fun getList(): List<TodoItem> {
+//        return cases
+//    }
+
+//    fun addCase(textCase: String,
+//                importance: String,
+//                deadline: String,
+//                dateCreate: String) {
+//
+//        cases.add(
+//            TodoItem(
+//            caseText = textCase,
+//            importanceText = importance,
+//            deadline = deadline,
+//            execVal = false,
+//            dateCreate = dateCreate)
+//        )
+//    }
+
+    suspend fun insertNewNotes(noteEntity: NotesEntity) {
+            notesDao.insertNewNotes(noteEntity)
     }
 
-    fun addCase(textCase: String,
-                importance: String,
-                deadline: String,
-                dateCreate: String) {
-        index += 1
-
-        cases.add(
-            TodoItem(
-            id = index,
-            caseText = textCase,
-            importanceText = importance,
-            deadline = deadline,
-            execVal = false,
-            dateCreate = dateCreate)
-        )
+    suspend fun deleteNoteById(id: Long) {
+        withContext(Dispatchers.IO) {
+            notesDao.deleteNoteEntityById(id)
+        }
     }
-
-// Класс сохранения данных
 }

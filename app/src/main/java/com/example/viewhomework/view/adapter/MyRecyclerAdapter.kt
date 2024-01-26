@@ -1,5 +1,6 @@
 package com.example.viewhomework.view.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,21 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewhomework.R
 import com.example.viewhomework.data.model.TodoItem
+import com.example.viewhomework.data.model.entityDB.NotesEntity
 
-class MyRecyclerAdapter() :
-    RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
+class MyRecyclerAdapter() : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
-    var data: List<TodoItem> = emptyList()
-        set(newValue) {
-            field = newValue
-            notifyDataSetChanged()
-        }
+    private var noteList = emptyList<NotesEntity>()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        val textView: TextView
-//        init {
-//            textView = view.findViewById(R.id.text_task)
-//        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,16 +27,22 @@ class MyRecyclerAdapter() :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val case = data[position]
+        val case = noteList[position]
         val context = holder.itemView.context
 
-        with(holder.itemView){
-            findViewById<TextView>(R.id.text_task).text = case.caseText
-        }
-//        holder.textView.text = list[position]
+//        with(holder.itemView){
+//            findViewById<TextView>(R.id.text_task).text = case.textCase
+//        }
+
+        holder.itemView.findViewById<TextView>(R.id.text_task).text = case.textCase
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = noteList.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(notes: List<NotesEntity>) {
+        this.noteList = notes
+        notifyDataSetChanged()
+    }
 
 }

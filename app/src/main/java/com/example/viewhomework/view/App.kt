@@ -4,5 +4,5 @@ import android.app.Application
 import com.example.viewhomework.data.repository.TodoItemsRepository
 
 class App : Application() {
-    val todoItemsRepository = TodoItemsRepository()
+//    val todoItemsRepository = TodoItemsRepository()
 }

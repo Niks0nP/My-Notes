@@ -1,14 +1,17 @@
 package com.example.viewhomework.view.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.viewhomework.R
-import com.example.viewhomework.data.repository.TodoItemsRepository
+import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.databinding.AddCaseBinding
-import com.example.viewhomework.view.App
+import com.example.viewhomework.view.viewModel.NotesViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -17,8 +20,10 @@ class AddCaseFragment : Fragment() {
     private var _binding: AddCaseBinding? = null
     private val binding get() = _binding!!
 
-    private val todoItemsRepository: TodoItemsRepository?
-        get() = (activity?.applicationContext as? App)?.todoItemsRepository
+    private lateinit var nNotesViewModel: NotesViewModel
+
+//    private val todoItemsRepository: TodoItemsRepository?
+//        get() = (activity?.applicationContext as? App)?.todoItemsRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +31,9 @@ class AddCaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = AddCaseBinding.inflate(inflater, container, false)
+
+        nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
+
         return binding.root
     }
 
@@ -36,7 +44,7 @@ class AddCaseFragment : Fragment() {
         var deadline: String = ""
         var importance: String
 
-        var dateCreate: String = LocalDate.now()
+        val dateCreate: String = LocalDate.now()
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
         binding.closeButton.setOnClickListener {
@@ -50,7 +58,7 @@ class AddCaseFragment : Fragment() {
                 binding.calendarLayout.visibility = View.VISIBLE
                 binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                     binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
-                    deadline = "$dayOfMonth.$month.$year"
+                    deadline = "$dayOfMonth.${month + 1}.$year"
                 }
 
                 binding.textOk.setOnClickListener {
@@ -65,12 +73,29 @@ class AddCaseFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             textCase = binding.editTextField.text.toString()
             importance = binding.spinnerView.selectedItem.toString()
-            todoItemsRepository?.addCase(textCase, importance, deadline, dateCreate)
+
+            insertDataToDatabase(textCase, deadline, importance)
 
             val fragmentTransaction = parentFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_view, MainFragment())
             fragmentTransaction.commit()
         }
+    }
+
+    private fun insertDataToDatabase(textCase: String, deadline: String, importance: String) {
+        if (checkOnNull(textCase, deadline, importance)) {
+            val notes = NotesEntity(0, textCase, deadline, importance)
+
+            nNotesViewModel.insertNewNotes(notes)
+            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+        }
+        else {
+            Toast.makeText(requireContext(), "Add all information", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun checkOnNull(textCase: String, deadline: String, importance: String): Boolean {
+        return !(TextUtils.isEmpty(textCase) && TextUtils.isEmpty(deadline) && TextUtils.isEmpty(importance))
     }
 
     override fun onDestroyView() {

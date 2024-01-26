@@ -2,6 +2,7 @@
     <string name="app_name">ViewHomework</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="note_name_text">Notes</string>
     
     <string-array name="spinner_array">
         <item>Нет</item>
