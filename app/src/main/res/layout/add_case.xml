@@ -3,114 +3,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/background_color"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/close_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/close"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="350dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:importantForAccessibility="no" />
+        tools:ignore="UseCompoundDrawables">
 
-    <TextView
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Сохранить"
-        android:textSize="20sp"
-        android:textColor="@color/blue"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="275dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_save_button"
+            android:textSize="32sp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/green_buttons_color"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/close_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edit_text_field"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/style_recycler_view"
         android:gravity="top"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/black"
-        android:hint="Что надо сделать..."
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:hint="@string/hint_edit_text"
         android:textColorHint="@color/grey2"
-        android:padding="15dp"
+        android:padding="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/close_button"
+        app:layout_constraintBottom_toTopOf="@id/text_importance"
+        app:layout_constraintTop_toBottomOf="@id/top_layout"
         android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/text_importance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Важность"
-        android:textColor="@color/black"
-        android:textSize="18sp"
+        android:text="@string/importance_text"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_field"/>
+        app:layout_constraintBottom_toTopOf="@id/spinner_view"/>
 
     <Spinner
         android:id="@+id/spinner_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:paddingStart="30dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/edit_button"
         android:entries="@array/spinner_array"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_importance"/>
+        app:layout_constraintBottom_toTopOf="@+id/layout_data"
+        tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:id="@+id/text_date"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_data"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сделать до"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="290dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_view"/>
+        app:layout_constraintBottom_toTopOf="@+id/date_edit_field">
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_date_do"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:paddingEnd="20dp"
+            tools:ignore="RtlSymmetry" />
+
+        <Switch
+            android:id="@+id/switch_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/date_edit_field"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="70dp"
         android:textSize="14sp"
-        android:textColor="@color/grey2"
+        android:paddingStart="35dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/edit_button"
+        android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_date"
-        android:importantForAutofill="no" />
-
-    <Switch
-        android:id="@+id/switch_date"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="240dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_date"
-        app:layout_constraintTop_toBottomOf="@id/spinner_view"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        app:layout_constraintBottom_toTopOf="@id/delete_button"
+        android:importantForAutofill="no"
+        tools:ignore="RtlSymmetry" />
 
     <LinearLayout
         android:id="@+id/calendar_layout"
@@ -145,35 +179,24 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+    <TextView
         android:id="@+id/delete_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:text="@string/button_delete_text"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/delete_button_style"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/date_edit_field"
+        android:layout_marginBottom="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"
-            android:layout_gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Удалить"
-            android:textColor="@color/red"
-            android:textSize="18sp"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_name_text">Notes</string>
-    
+    <string name="text_save_button">Сохранить</string>
+    <string name="hint_edit_text">Что надо сделать...</string>
+    <string name="button_delete_text">Удалить</string>
+    <string name="text_date_do">Сделать до</string>
+    <string name="importance_text">Важность</string>
+
     <string-array name="spinner_array">
         <item>Нет</item>
         <item>Низкая</item>
