@@ -4,11 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewhomework.R
 import com.example.viewhomework.data.model.entityDB.NotesEntity
+import com.example.viewhomework.view.fragment.AddCaseFragment
+import com.example.viewhomework.view.fragment.ChangeFragment
+import com.example.viewhomework.view.fragment.MainFragment
 
-class MyRecyclerAdapter() : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
+class MyRecyclerAdapter(
+   val navigate: (NotesEntity) -> Unit
+) : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
 
     private var noteList = emptyList<NotesEntity>()
 
@@ -26,9 +32,14 @@ class MyRecyclerAdapter() : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val case = noteList[position]
-        val context = holder.itemView.context
-
         holder.itemView.findViewById<TextView>(R.id.text_task).text = case.textCase
+
+        with(holder.itemView) {
+            findViewById<ConstraintLayout>(R.id.current_item).setOnClickListener {
+                navigate(case)
+            }
+        }
+
     }
 
     override fun getItemCount() = noteList.size

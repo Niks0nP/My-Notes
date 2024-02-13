@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.viewhomework.data.model.appDB.AppDatabase
 import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.data.repository.TodoItemsRepository
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class NotesViewModel(application: Application): AndroidViewModel(application) {
@@ -25,5 +27,12 @@ class NotesViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertNewNotes(notesEntity)
         }
+    }
+
+    suspend fun updateElement(noteId: Long): NotesEntity {
+        val deferred: Deferred<NotesEntity> = viewModelScope.async {
+            repository.updateElement(noteId)
+        }
+        return deferred.await()
     }
 }

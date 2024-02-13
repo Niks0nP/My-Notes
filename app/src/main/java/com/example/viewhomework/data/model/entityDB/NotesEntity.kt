@@ -1,5 +1,6 @@
 package com.example.viewhomework.data.model.entityDB
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey

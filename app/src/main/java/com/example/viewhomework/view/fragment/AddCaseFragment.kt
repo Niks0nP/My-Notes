@@ -22,9 +22,6 @@ class AddCaseFragment : Fragment() {
 
     private lateinit var nNotesViewModel: NotesViewModel
 
-//    private val todoItemsRepository: TodoItemsRepository?
-//        get() = (activity?.applicationContext as? App)?.todoItemsRepository
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

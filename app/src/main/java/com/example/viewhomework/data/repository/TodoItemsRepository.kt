@@ -32,7 +32,11 @@ class TodoItemsRepository(private val notesDao: NotesDao) {
 //    }
 
     suspend fun insertNewNotes(noteEntity: NotesEntity) {
-            notesDao.insertNewNotes(noteEntity)
+        notesDao.insertNewNotes(noteEntity)
+    }
+
+    suspend fun updateElement(noteId: Long): NotesEntity {
+        return notesDao.updateElement(noteId)
     }
 
     suspend fun deleteNoteById(id: Long) {

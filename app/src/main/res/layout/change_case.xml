@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_color">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -32,10 +32,10 @@
             android:importantForAccessibility="no" />
 
         <TextView
-            android:id="@+id/save_button"
+            android:id="@+id/change_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_save_button"
+            android:text="@string/text_change_button"
             android:textSize="28sp"
             android:layout_weight="1"
             android:gravity="end"
@@ -48,27 +48,27 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/edit_text_field"
+        android:id="@+id/change_text_field"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/style_recycler_view"
+        android:inputType="textCapWords"
         android:gravity="top"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:textColor="@color/white"
-        android:hint="@string/hint_edit_text"
         android:textColorHint="@color/grey2"
         android:padding="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_importance"
+        app:layout_constraintBottom_toTopOf="@id/change_text_importance"
         app:layout_constraintTop_toBottomOf="@id/top_layout"
         android:importantForAutofill="no" />
 
     <TextView
-        android:id="@+id/text_importance"
+        android:id="@+id/change_text_importance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/importance_text"
@@ -80,10 +80,10 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/spinner_view"/>
+        app:layout_constraintBottom_toTopOf="@id/change_spinner_view"/>
 
     <Spinner
-        android:id="@+id/spinner_view"
+        android:id="@+id/change_spinner_view"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
@@ -137,12 +137,12 @@
         android:background="@drawable/edit_button"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/delete_button"
         android:importantForAutofill="no"
         tools:ignore="RtlSymmetry" />
 
@@ -183,5 +183,23 @@
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/button_delete_text"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/delete_button_style"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,9 @@ interface NotesDao {
     @Query("SELECT * FROM notes")
     fun readAllNotesData(): LiveData<List<NotesEntity>>
 
+    @Query("SELECT * FROM notes WHERE id ==:noteId")
+    suspend fun updateElement(noteId: Long): NotesEntity
+
     @Query("DELETE FROM notes WHERE id = :notesId")
     suspend fun deleteNoteEntityById(notesId: Long)
 }
