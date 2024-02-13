@@ -29,10 +29,16 @@ class NotesViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    suspend fun updateElement(noteId: Long): NotesEntity {
+    suspend fun getElement(noteId: Long): NotesEntity {
         val deferred: Deferred<NotesEntity> = viewModelScope.async {
-            repository.updateElement(noteId)
+            repository.getElement(noteId)
         }
         return deferred.await()
+    }
+
+    fun updateNote(noteEntity: NotesEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateNote(noteEntity)
+        }
     }
 }

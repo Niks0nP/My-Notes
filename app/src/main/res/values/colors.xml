@@ -12,4 +12,5 @@
     <color name="green_buttons_color">#00926F</color>
     <color name="button_color">#408CA4</color>
     <color name="button_color2">#156B86</color>
+    <color name="background_add">#99000000</color>
 </resources>

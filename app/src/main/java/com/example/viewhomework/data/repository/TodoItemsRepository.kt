@@ -10,33 +10,16 @@ class TodoItemsRepository(private val notesDao: NotesDao) {
 
     val readAllData: LiveData<List<NotesEntity>> = notesDao.readAllNotesData()
 
-//    private var cases = mutableListOf<TodoItem>()
-
-//    fun getList(): List<TodoItem> {
-//        return cases
-//    }
-
-//    fun addCase(textCase: String,
-//                importance: String,
-//                deadline: String,
-//                dateCreate: String) {
-//
-//        cases.add(
-//            TodoItem(
-//            caseText = textCase,
-//            importanceText = importance,
-//            deadline = deadline,
-//            execVal = false,
-//            dateCreate = dateCreate)
-//        )
-//    }
-
     suspend fun insertNewNotes(noteEntity: NotesEntity) {
         notesDao.insertNewNotes(noteEntity)
     }
 
-    suspend fun updateElement(noteId: Long): NotesEntity {
-        return notesDao.updateElement(noteId)
+    suspend fun getElement(noteId: Long): NotesEntity {
+        return notesDao.getElement(noteId)
+    }
+
+    suspend fun updateNote(noteEntity: NotesEntity) {
+        notesDao.updateNote(noteEntity)
     }
 
     suspend fun deleteNoteById(id: Long) {

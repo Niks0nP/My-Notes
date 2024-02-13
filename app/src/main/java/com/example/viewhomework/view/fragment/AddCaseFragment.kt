@@ -38,7 +38,7 @@ class AddCaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var textCase: String
-        var deadline: String = ""
+        var deadline = ""
         var importance: String
 
         val dateCreate: String = LocalDate.now()
@@ -52,17 +52,17 @@ class AddCaseFragment : Fragment() {
 
         binding.switchDate.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
-                binding.calendarLayout.visibility = View.VISIBLE
+                binding.calendarConstraint.visibility = View.VISIBLE
                 binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                     binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
                     deadline = "$dayOfMonth.${month + 1}.$year"
                 }
 
                 binding.textOk.setOnClickListener {
-                    binding.calendarLayout.visibility = View.INVISIBLE
+                    binding.calendarConstraint.visibility = View.INVISIBLE
                 }
             } else {
-                binding.calendarLayout.visibility = View.INVISIBLE
+                binding.calendarConstraint.visibility = View.INVISIBLE
                 binding.dateEditField.text = null
             }
         }
@@ -72,22 +72,17 @@ class AddCaseFragment : Fragment() {
             importance = binding.spinnerView.selectedItem.toString()
 
             insertDataToDatabase(textCase, deadline, importance)
-
-            val fragmentTransaction = parentFragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_view, MainFragment())
-            fragmentTransaction.commit()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_view, MainFragment())
+                .commit()
         }
     }
 
     private fun insertDataToDatabase(textCase: String, deadline: String, importance: String) {
         if (checkOnNull(textCase, deadline, importance)) {
             val notes = NotesEntity(0, textCase, deadline, importance)
-
             nNotesViewModel.insertNewNotes(notes)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
-        }
-        else {
-            Toast.makeText(requireContext(), "Add all information", Toast.LENGTH_LONG).show()
         }
     }
 
