@@ -1,13 +1,11 @@
 package com.example.viewhomework.view.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewhomework.R
-import com.example.viewhomework.data.model.TodoItem
 import com.example.viewhomework.data.model.entityDB.NotesEntity
 
 class MyRecyclerAdapter() : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>() {
@@ -30,16 +28,11 @@ class MyRecyclerAdapter() : RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>
         val case = noteList[position]
         val context = holder.itemView.context
 
-//        with(holder.itemView){
-//            findViewById<TextView>(R.id.text_task).text = case.textCase
-//        }
-
         holder.itemView.findViewById<TextView>(R.id.text_task).text = case.textCase
     }
 
     override fun getItemCount() = noteList.size
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setData(notes: List<NotesEntity>) {
         this.noteList = notes
         notifyDataSetChanged()

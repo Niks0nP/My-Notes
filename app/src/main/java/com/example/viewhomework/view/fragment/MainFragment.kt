@@ -27,11 +27,10 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MainScreenBinding.inflate(inflater, container, false)
-        val view = binding.root
         myRecyclerAdapter = MyRecyclerAdapter()
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,26 +42,17 @@ class MainFragment : Fragment() {
             fragmentTransaction.commit()
         }
 
-        val adapter = MyRecyclerAdapter()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.my_recycler_view)
         binding.myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.myRecyclerView.adapter = myRecyclerAdapter
-        recyclerView.adapter = adapter
+        binding.myRecyclerView.adapter = myRecyclerAdapter
 
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
         nNotesViewModel.readAllData.observe(viewLifecycleOwner, Observer {notes ->
-            adapter.setData(notes)
+            myRecyclerAdapter.setData(notes)
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

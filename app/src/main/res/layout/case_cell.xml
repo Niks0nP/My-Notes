@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:theme="@style/Theme.ViewHomework"
-        android:hint="Задача"
+        android:hint="@string/note_text"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/checked_box"
         app:layout_constraintTop_toTopOf="parent"

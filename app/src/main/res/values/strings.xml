@@ -8,6 +8,8 @@
     <string name="button_delete_text">Удалить</string>
     <string name="text_date_do">Сделать до</string>
     <string name="importance_text">Важность</string>
+    <string name="note_text">Задача</string>
+    <string name="text_ok">OK</string>
 
     <string-array name="spinner_array">
         <item>Нет</item>
