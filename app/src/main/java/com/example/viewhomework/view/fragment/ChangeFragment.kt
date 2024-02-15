@@ -70,7 +70,7 @@ class ChangeFragment: Fragment() {
         }
 
         binding.deleteButton.setOnClickListener {
-            deleteUser(id)
+            deleteNote(id)
         }
     }
 
@@ -106,7 +106,7 @@ class ChangeFragment: Fragment() {
         return !(TextUtils.isEmpty(textCase) && TextUtils.isEmpty(deadline) && TextUtils.isEmpty(importance))
     }
 
-    private fun deleteUser(id: Long) {
+    private fun deleteNote(id: Long) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Да") {_,_ ->
             nNotesViewModel.deleteNote(id)

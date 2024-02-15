@@ -1,5 +1,6 @@
 package com.example.viewhomework.view.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,10 @@ class MainFragment : Fragment() {
                 .commit()
         }
 
+        binding.deleteBtnMainScreen.setOnClickListener {
+            deleteAllNotes()
+        }
+
         binding.myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.myRecyclerView.adapter = myRecyclerAdapter
 
@@ -58,8 +63,22 @@ class MainFragment : Fragment() {
         nNotesViewModel.readAllData.observe(viewLifecycleOwner, Observer {notes ->
             myRecyclerAdapter.setData(notes)
         })
+    }
 
+    private fun deleteAllNotes() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Да") {_,_ ->
+            nNotesViewModel.deleteAllNotes()
 
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_view, MainFragment())
+                .commit()
+        }
+        builder.setNegativeButton("Нет") { _,_ -> }
+        builder.setTitle("Удалить все заметки?")
+        builder.setMessage("Вы действительно хотите удалить все заметки?")
+        builder.create().show()
     }
 
     override fun onDestroyView() {
