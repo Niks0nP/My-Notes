@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_color">
 
@@ -53,7 +54,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/style_recycler_view"
-        android:inputType="textCapSentences"
+        android:inputType="textMultiLine"
         android:gravity="top"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -65,7 +66,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/change_text_importance"
         app:layout_constraintTop_toBottomOf="@id/top_layout"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/change_text_importance"

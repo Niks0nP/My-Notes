@@ -8,6 +8,6 @@
         android:bottom="10dp"/>
     <solid android:color="@color/button_color"/>
     <stroke
-        android:color="@color/white"
+        android:color="@color/green"
         android:width="2dp"/>
 </shape>

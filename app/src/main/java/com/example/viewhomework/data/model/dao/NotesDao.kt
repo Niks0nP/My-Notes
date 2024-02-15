@@ -2,6 +2,7 @@ package com.example.viewhomework.data.model.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -23,6 +24,9 @@ interface NotesDao {
     @Update
     suspend fun updateNote(note: NotesEntity)
 
-    @Query("DELETE FROM notes WHERE id = :notesId")
-    suspend fun deleteNoteEntityById(notesId: Long)
+    @Query("DELETE FROM notes WHERE id ==:noteId")
+    suspend fun deleteNote(noteId: Long)
+
+    @Query("DELETE FROM notes")
+    suspend fun deleteAllNotes()
 }

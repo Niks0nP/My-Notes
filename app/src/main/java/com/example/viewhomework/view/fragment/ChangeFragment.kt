@@ -1,9 +1,12 @@
 package com.example.viewhomework.view.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -41,9 +44,9 @@ class ChangeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var note: NotesEntity
-
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
+
+        var note: NotesEntity
 
         if (id.toInt() != -1) {
             CoroutineScope(Main).launch {
@@ -65,6 +68,10 @@ class ChangeFragment: Fragment() {
         binding.closeButton.setOnClickListener {
             updateNote()
         }
+
+        binding.deleteButton.setOnClickListener {
+            deleteUser(id)
+        }
     }
 
     private fun checkImportance(importance: String) {
@@ -81,7 +88,7 @@ class ChangeFragment: Fragment() {
 
     private fun updateNote() {
         val textNote = binding.changeTextField.text.toString()
-        val importance = binding.changeTextImportance.text.toString()
+        val importance = binding.changeSpinnerView.selectedItem.toString()
         val deadline = binding.dateEditField.text.toString()
 
         if (checkOnNull(textNote, deadline, importance)) {
@@ -97,5 +104,21 @@ class ChangeFragment: Fragment() {
 
     private fun checkOnNull(textCase: String, deadline: String, importance: String): Boolean {
         return !(TextUtils.isEmpty(textCase) && TextUtils.isEmpty(deadline) && TextUtils.isEmpty(importance))
+    }
+
+    private fun deleteUser(id: Long) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Да") {_,_ ->
+            nNotesViewModel.deleteNote(id)
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_view, MainFragment())
+                .commit()
+        }
+        builder.setNegativeButton("Нет") { _,_ -> }
+        builder.setTitle("Удалить заметку?")
+        builder.setMessage("Вы действительно хотите удалить заметку?")
+        builder.create().show()
     }
 }

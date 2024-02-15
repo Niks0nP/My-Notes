@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/background_color"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -49,12 +50,12 @@
 
     <EditText
         android:id="@+id/edit_text_field"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/style_recycler_view"
         android:gravity="top"
-        android:inputType="textCapSentences"
+        android:inputType="textMultiLine"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"

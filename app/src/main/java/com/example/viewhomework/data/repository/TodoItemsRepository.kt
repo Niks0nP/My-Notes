@@ -22,9 +22,11 @@ class TodoItemsRepository(private val notesDao: NotesDao) {
         notesDao.updateNote(noteEntity)
     }
 
-    suspend fun deleteNoteById(id: Long) {
-        withContext(Dispatchers.IO) {
-            notesDao.deleteNoteEntityById(id)
-        }
+    suspend fun deleteNote(noteId: Long) {
+        notesDao.deleteNote(noteId)
+    }
+
+    suspend fun deleteAllNotes() {
+        notesDao.deleteAllNotes()
     }
 }
