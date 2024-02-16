@@ -96,9 +96,7 @@ class ChangeFragment: Fragment() {
             nNotesViewModel.updateNote(updateNote)
 
             parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
+                .popBackStack()
         }
     }
 

@@ -31,12 +31,13 @@ class MainFragment : Fragment() {
     ): View {
         _binding = MainScreenBinding.inflate(inflater, container, false)
         myRecyclerAdapter = MyRecyclerAdapter { case ->
-            val frag = ChangeFragment().apply {
+            val fragment = ChangeFragment().apply {
                 arguments = bundleOf("caseId" to case.id)
             }
             parentFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_view, frag)
+                .replace(R.id.fragment_view, fragment)
+                .addToBackStack(null)
                 .commit()
         }
         return binding.root
@@ -61,7 +62,7 @@ class MainFragment : Fragment() {
 
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
         nNotesViewModel.readAllData.observe(viewLifecycleOwner, Observer {notes ->
-            myRecyclerAdapter.setData(notes)
+            myRecyclerAdapter.submitList(notes)
         })
     }
 

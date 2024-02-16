@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewhomework.R
@@ -26,7 +25,7 @@ class AddCaseFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = AddCaseBinding.inflate(inflater, container, false)
 
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
@@ -45,9 +44,10 @@ class AddCaseFragment : Fragment() {
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
         binding.closeButton.setOnClickListener {
-            val fragmentTransaction = parentFragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_view, MainFragment())
-            fragmentTransaction.commit()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_view, MainFragment())
+                .commit()
         }
 
         binding.switchDate.setOnCheckedChangeListener { buttonView, isChecked ->
