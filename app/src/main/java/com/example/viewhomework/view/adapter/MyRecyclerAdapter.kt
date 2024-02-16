@@ -26,16 +26,16 @@ class MyRecyclerAdapter(
     class MyViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun onBind(notesEntity: NotesEntity) {
-            val cons = view.findViewById<ConstraintLayout>(R.id.current_item)
-            if (notesEntity.importance == "Высокая") {
-                cons.setBackgroundResource(R.drawable.style_recycler_view3)
+            val constraint = view.findViewById<ConstraintLayout>(R.id.current_item)
+            when (notesEntity.importance) {
+                "Высокая" -> {
+                    constraint.setBackgroundResource(R.drawable.style_recycler_view3)
+                }
+                "Низкая" -> {
+                    constraint.setBackgroundResource(R.drawable.style_recycler_view2)
+                }
+                else -> constraint.setBackgroundResource(R.drawable.style_recycler_view)
             }
-            else if (notesEntity.importance == "Низкая") {
-                cons.setBackgroundResource(R.drawable.style_recycler_view2)
-            }
-            else
-                cons.setBackgroundResource(R.drawable.style_recycler_view)
-
         }
     }
 
