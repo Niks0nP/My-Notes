@@ -2,11 +2,8 @@ package com.example.viewhomework.view.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -17,18 +14,11 @@ import com.example.viewhomework.R
 import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.databinding.ChangeCaseBinding
 import com.example.viewhomework.view.viewModel.NotesViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
 class ChangeFragment: Fragment() {
 
     private var _binding: ChangeCaseBinding? = null
     private val binding get() = _binding!!
-
-    var id: Long = 0
 
     private lateinit var nNotesViewModel: NotesViewModel
 
@@ -49,12 +39,15 @@ class ChangeFragment: Fragment() {
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
 
         binding.changeTextField.setText(args.currentNote.textCase)
-        binding.dateEditField.setText(args.currentNote.deadLine)
+        binding.dateEditField.text = args.currentNote.deadLine
         checkImportance(args.currentNote.importance)
+
+        if (args.currentNote.deadLine != "") {
+            binding.switchDate.isChecked = true
+        }
 
         binding.changeButton.setOnClickListener {
             updateNote()
-            findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }
 
         binding.closeButton.setOnClickListener {
@@ -63,6 +56,10 @@ class ChangeFragment: Fragment() {
 
         binding.deleteButton.setOnClickListener {
             deleteNote(args.currentNote.id)
+        }
+
+        binding.switchDate.setOnCheckedChangeListener { _, isChecked ->
+            setCalendarDate(isChecked)
         }
     }
 
@@ -78,14 +75,31 @@ class ChangeFragment: Fragment() {
         }
     }
 
+    private fun setCalendarDate(isChecked: Boolean) {
+        if (isChecked){
+            binding.calendarConstraint.visibility = View.VISIBLE
+            binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+                binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
+            }
+
+            binding.textOk.setOnClickListener {
+                binding.calendarConstraint.visibility = View.INVISIBLE
+            }
+        } else {
+            binding.calendarConstraint.visibility = View.INVISIBLE
+            binding.dateEditField.text = null
+        }
+    }
+
     private fun updateNote() {
         val textNote = binding.changeTextField.text.toString()
         val importance = binding.changeSpinnerView.selectedItem.toString()
         val deadline = binding.dateEditField.text.toString()
 
         if (checkOnNull(textNote, deadline, importance)) {
-            val updateNote = NotesEntity(id,textNote, deadline, importance)
+            val updateNote = NotesEntity(args.currentNote.id,textNote, deadline, importance)
             nNotesViewModel.updateNote(updateNote)
+            findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }
     }
 

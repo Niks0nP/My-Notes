@@ -37,10 +37,6 @@ class AddCaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var textCase: String
-        var deadline = ""
-        var importance: String
-
         val dateCreate: String = LocalDate.now()
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
@@ -48,36 +44,41 @@ class AddCaseFragment : Fragment() {
             findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
         }
 
-        binding.switchDate.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked){
-                binding.calendarConstraint.visibility = View.VISIBLE
-                binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
-                    deadline = "$dayOfMonth.${month + 1}.$year"
-                }
-
-                binding.textOk.setOnClickListener {
-                    binding.calendarConstraint.visibility = View.INVISIBLE
-                }
-            } else {
-                binding.calendarConstraint.visibility = View.INVISIBLE
-                binding.dateEditField.text = null
-            }
+        binding.switchDate.setOnCheckedChangeListener { _, isChecked ->
+            setCalendarDate(isChecked)
         }
 
         binding.saveButton.setOnClickListener {
-            textCase = binding.editTextField.text.toString()
-            importance = binding.spinnerView.selectedItem.toString()
+            insertDataToDatabase()
+        }
+    }
 
-            insertDataToDatabase(textCase, deadline, importance)
+    private fun insertDataToDatabase() {
+        val textCase = binding.editTextField.text.toString()
+        val importance = binding.spinnerView.selectedItem.toString()
+        val deadline = binding.dateEditField.text.toString()
+
+        if (checkOnNull(textCase, deadline, importance)) {
+            val notes = NotesEntity(0, textCase, deadline, importance)
+            nNotesViewModel.insertNewNotes(notes)
+
             findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
         }
     }
 
-    private fun insertDataToDatabase(textCase: String, deadline: String, importance: String) {
-        if (checkOnNull(textCase, deadline, importance)) {
-            val notes = NotesEntity(0, textCase, deadline, importance)
-            nNotesViewModel.insertNewNotes(notes)
+    private fun setCalendarDate(isChecked: Boolean) {
+        if (isChecked){
+            binding.calendarConstraint.visibility = View.VISIBLE
+            binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+                binding.dateEditField.text = "$dayOfMonth.${month + 1}.$year"
+            }
+
+            binding.textOk.setOnClickListener {
+                binding.calendarConstraint.visibility = View.INVISIBLE
+            }
+        } else {
+            binding.calendarConstraint.visibility = View.INVISIBLE
+            binding.dateEditField.text = null
         }
     }
 
