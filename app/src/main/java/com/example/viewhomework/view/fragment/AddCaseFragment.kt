@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.viewhomework.R
 import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.databinding.AddCaseBinding
@@ -44,10 +45,7 @@ class AddCaseFragment : Fragment() {
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
         binding.closeButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
+            findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
         }
 
         binding.switchDate.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -72,10 +70,7 @@ class AddCaseFragment : Fragment() {
             importance = binding.spinnerView.selectedItem.toString()
 
             insertDataToDatabase(textCase, deadline, importance)
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
+            findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
         }
     }
 

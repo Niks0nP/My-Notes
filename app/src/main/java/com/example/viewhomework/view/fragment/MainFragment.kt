@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.viewhomework.view.adapter.MyRecyclerAdapter
 import com.example.viewhomework.R
@@ -30,16 +31,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainScreenBinding.inflate(inflater, container, false)
-        myRecyclerAdapter = MyRecyclerAdapter { case ->
-            val fragment = ChangeFragment().apply {
-                arguments = bundleOf("caseId" to case.id)
-            }
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
+        myRecyclerAdapter = MyRecyclerAdapter()
         return binding.root
     }
 
@@ -47,10 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.floatingActionButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, AddCaseFragment())
-                .commit()
+            findNavController().navigate(R.id.action_mainFragment_to_addCaseFragment)
         }
 
         binding.deleteBtnMainScreen.setOnClickListener {
@@ -70,11 +59,6 @@ class MainFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Да") {_,_ ->
             nNotesViewModel.deleteAllNotes()
-
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
         }
         builder.setNegativeButton("Нет") { _,_ -> }
         builder.setTitle("Удалить все заметки?")

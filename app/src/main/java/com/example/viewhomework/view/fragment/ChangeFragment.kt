@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.viewhomework.R
 import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.databinding.ChangeCaseBinding
@@ -30,14 +32,14 @@ class ChangeFragment: Fragment() {
 
     private lateinit var nNotesViewModel: NotesViewModel
 
+    private val args by navArgs<ChangeFragmentArgs>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = ChangeCaseBinding.inflate(inflater, container, false)
-        id = arguments?.getLong("caseId") ?: -1L
-
         return binding.root
     }
 
@@ -46,31 +48,21 @@ class ChangeFragment: Fragment() {
 
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
 
-        var note: NotesEntity
-
-        if (id.toInt() != -1) {
-            CoroutineScope(Main).launch {
-                note = nNotesViewModel.getElement(id)
-                binding.changeTextField.setText(note.textCase)
-                binding.dateEditField.setText(note.deadLine)
-                checkImportance(note.importance)
-            }
-        }
+        binding.changeTextField.setText(args.currentNote.textCase)
+        binding.dateEditField.setText(args.currentNote.deadLine)
+        checkImportance(args.currentNote.importance)
 
         binding.changeButton.setOnClickListener {
             updateNote()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
+            findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }
 
         binding.closeButton.setOnClickListener {
-            updateNote()
+            findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }
 
         binding.deleteButton.setOnClickListener {
-            deleteNote(id)
+            deleteNote(args.currentNote.id)
         }
     }
 
@@ -94,9 +86,6 @@ class ChangeFragment: Fragment() {
         if (checkOnNull(textNote, deadline, importance)) {
             val updateNote = NotesEntity(id,textNote, deadline, importance)
             nNotesViewModel.updateNote(updateNote)
-
-            parentFragmentManager
-                .popBackStack()
         }
     }
 
@@ -108,11 +97,7 @@ class ChangeFragment: Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Да") {_,_ ->
             nNotesViewModel.deleteNote(id)
-
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view, MainFragment())
-                .commit()
+            findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }
         builder.setNegativeButton("Нет") { _,_ -> }
         builder.setTitle("Удалить заметку?")

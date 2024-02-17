@@ -6,14 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewhomework.R
 import com.example.viewhomework.data.model.entityDB.NotesEntity
+import com.example.viewhomework.view.fragment.MainFragment
+import com.example.viewhomework.view.fragment.MainFragmentDirections
 
-class MyRecyclerAdapter(
-   val navigate: (NotesEntity) -> Unit
-) : ListAdapter<NotesEntity, MyRecyclerAdapter.MyViewHolder>(DiffUtilCallback) {
+
+class MyRecyclerAdapter
+    : ListAdapter<NotesEntity, MyRecyclerAdapter.MyViewHolder>(DiffUtilCallback) {
 
     class MyViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -46,7 +49,8 @@ class MyRecyclerAdapter(
 
         with(holder.itemView) {
             findViewById<ConstraintLayout>(R.id.current_item).setOnClickListener {
-                navigate(case)
+                val action = MainFragmentDirections.actionMainFragmentToChangeFragment(case)
+                findNavController().navigate(action)
             }
         }
     }

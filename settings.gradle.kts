@@ -13,6 +13,8 @@ dependencyResolutionManagement {
     }
 }
 
+
+
 rootProject.name = "ViewHomework"
 include(":app")
  
