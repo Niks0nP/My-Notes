@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/my_case"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/note_name_text"
@@ -38,6 +38,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/quantity_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="@color/grey2"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -48,7 +61,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/quantity_notes"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

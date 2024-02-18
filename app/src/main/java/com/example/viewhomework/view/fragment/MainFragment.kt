@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.viewhomework.view.adapter.MyRecyclerAdapter
 import com.example.viewhomework.R
+import com.example.viewhomework.data.model.entityDB.NotesEntity
 import com.example.viewhomework.databinding.MainScreenBinding
 import com.example.viewhomework.view.viewModel.NotesViewModel
 
@@ -52,6 +53,8 @@ class MainFragment : Fragment() {
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
         nNotesViewModel.readAllData.observe(viewLifecycleOwner, Observer {notes ->
             myRecyclerAdapter.submitList(notes)
+
+            quantityNotes(notes)
         })
     }
 
@@ -64,6 +67,19 @@ class MainFragment : Fragment() {
         builder.setTitle("Удалить все заметки?")
         builder.setMessage("Вы действительно хотите удалить все заметки?")
         builder.create().show()
+    }
+
+    private fun quantityNotes(notes: List<NotesEntity>) {
+        when (notes.size) {
+            1 -> {
+                binding.quantityNotes.text = "${notes.size} заметка"
+            }
+            2,3,4 -> {
+                binding.quantityNotes.text = "${notes.size} заметки"
+            }
+            else ->
+                binding.quantityNotes.text = "${notes.size} заметок"
+        }
     }
 
     override fun onDestroyView() {

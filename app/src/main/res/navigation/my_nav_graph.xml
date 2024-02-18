@@ -10,18 +10,10 @@
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_addCaseFragment"
-            app:destination="@id/addCaseFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:destination="@id/addCaseFragment" />
         <action
             android:id="@+id/action_mainFragment_to_changeFragment"
-            app:destination="@id/changeFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:destination="@id/changeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCaseFragment"
@@ -41,11 +33,7 @@
         android:label="ChangeFragment" >
         <action
             android:id="@+id/action_changeFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:destination="@id/mainFragment" />
         <argument
             android:name="currentNote"
             app:argType="com.example.viewhomework.data.model.entityDB.NotesEntity" />

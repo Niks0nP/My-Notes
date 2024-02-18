@@ -1,8 +1,10 @@
 package com.example.viewhomework.view.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +44,8 @@ class MyRecyclerAdapter
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val case = getItem(position)
-        holder.itemView.findViewById<TextView>(R.id.text_task).text = case.textCase
+        val textView = holder.itemView.findViewById<TextView>(R.id.text_task)
+        textView.text = case.textCase
 
         val viewHolder = MyViewHolder(holder.itemView)
         viewHolder.onBind(case)
@@ -53,6 +56,15 @@ class MyRecyclerAdapter
                 findNavController().navigate(action)
             }
         }
+
+        holder.itemView.findViewById<CheckBox>(R.id.checked_box).setOnClickListener {
+            if (holder.itemView.findViewById<CheckBox>(R.id.checked_box).isChecked) {
+                textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+            else
+                textView.paintFlags = 0
+        }
+
     }
 
     object DiffUtilCallback : DiffUtil.ItemCallback<NotesEntity>() {
