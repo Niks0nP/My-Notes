@@ -6,7 +6,7 @@
         android:left="10dp"
         android:right="10dp"
         android:bottom="10dp"/>
-    <solid android:color="@color/button_color"/>
+    <solid android:color="@color/black"/>
     <stroke
         android:color="@color/red_button_color"
         android:width="2dp"/>
