@@ -37,9 +37,6 @@ class AddCaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dateCreate: String = LocalDate.now()
-            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-
         binding.closeButton.setOnClickListener {
             findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
         }
@@ -57,9 +54,11 @@ class AddCaseFragment : Fragment() {
         val textCase = binding.editTextField.text.toString()
         val importance = binding.spinnerView.selectedItem.toString()
         val deadline = binding.dateEditField.text.toString()
+        val dateCreate: String = LocalDate.now()
+            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
         if (checkOnNull(textCase, deadline, importance)) {
-            val notes = NotesEntity(0, textCase, deadline, importance)
+            val notes = NotesEntity(0, textCase, deadline, importance, dateCreate, check = null)
             nNotesViewModel.insertNewNotes(notes)
 
             findNavController().navigate(R.id.action_addCaseFragment_to_mainFragment)
@@ -74,10 +73,10 @@ class AddCaseFragment : Fragment() {
             }
 
             binding.textOk.setOnClickListener {
-                binding.calendarConstraint.visibility = View.INVISIBLE
+                binding.calendarConstraint.visibility = View.GONE
             }
         } else {
-            binding.calendarConstraint.visibility = View.INVISIBLE
+            binding.calendarConstraint.visibility = View.GONE
             binding.dateEditField.text = null
         }
     }

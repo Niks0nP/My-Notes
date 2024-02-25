@@ -16,5 +16,7 @@ data class NotesEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "text_case") val textCase: String,
     @ColumnInfo(name = "deadline") val deadLine: String,
-    @ColumnInfo(name = "importance") val importance: String
+    @ColumnInfo(name = "importance") val importance: String,
+    @ColumnInfo(name = "date_create") val dateCreate: String,
+    @ColumnInfo(name = "check_box") var check: Boolean?
 ): Parcelable

@@ -97,7 +97,13 @@ class ChangeFragment: Fragment() {
         val deadline = binding.dateEditField.text.toString()
 
         if (checkOnNull(textNote, deadline, importance)) {
-            val updateNote = NotesEntity(args.currentNote.id,textNote, deadline, importance)
+            val updateNote = NotesEntity(
+                args.currentNote.id,
+                textNote,
+                deadline,
+                importance,
+                args.currentNote.dateCreate,
+                args.currentNote.check)
             nNotesViewModel.updateNote(updateNote)
             findNavController().navigate(R.id.action_changeFragment_to_mainFragment)
         }

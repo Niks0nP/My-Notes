@@ -32,7 +32,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainScreenBinding.inflate(inflater, container, false)
-        myRecyclerAdapter = MyRecyclerAdapter()
+        nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
+        myRecyclerAdapter = MyRecyclerAdapter(nNotesViewModel)
         return binding.root
     }
 
@@ -53,7 +54,6 @@ class MainFragment : Fragment() {
         nNotesViewModel = ViewModelProvider(this)[NotesViewModel::class.java]
         nNotesViewModel.readAllData.observe(viewLifecycleOwner, Observer {notes ->
             myRecyclerAdapter.submitList(notes)
-
             quantityNotes(notes)
         })
     }

@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="20dp"
     android:background="@drawable/style_recycler_view"
-    android:paddingBottom="20dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_marginBottom="16dp"
     android:id="@+id/current_item">
@@ -43,10 +41,49 @@
         android:layout_height="wrap_content"
         android:src="@drawable/info"
         android:importantForAccessibility="no"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_date_create"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/edit_button"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/date_create_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_create"
+            android:textColor="@color/grey2"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/date_create"/>
+
+        <TextView
+            android:id="@+id/date_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey2"
+            android:layout_marginBottom="5dp"
+            android:text="12.02.23"
+            app:layout_constraintTop_toBottomOf="@id/date_create_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

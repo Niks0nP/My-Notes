@@ -12,6 +12,7 @@
     <string name="note_text">Задача</string>
     <string name="text_ok">OK</string>
     <string name="finished">Выполнено: </string>
+    <string name="date_create">Дата создания:</string>
 
     <string-array name="spinner_array">
         <item>Нет</item>
