@@ -3,8 +3,6 @@ package com.example.viewhomework.data.repository
 import androidx.lifecycle.LiveData
 import com.example.viewhomework.data.model.dao.NotesDao
 import com.example.viewhomework.data.model.entityDB.NotesEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class TodoItemsRepository(private val notesDao: NotesDao) {
 
@@ -12,10 +10,6 @@ class TodoItemsRepository(private val notesDao: NotesDao) {
 
     suspend fun insertNewNotes(noteEntity: NotesEntity) {
         notesDao.insertNewNotes(noteEntity)
-    }
-
-    suspend fun getElement(noteId: Long): NotesEntity {
-        return notesDao.getElement(noteId)
     }
 
     suspend fun updateNote(noteEntity: NotesEntity) {

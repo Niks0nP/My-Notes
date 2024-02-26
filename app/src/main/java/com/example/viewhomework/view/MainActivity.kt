@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
-import androidx.navigation.findNavController
-import com.example.viewhomework.view.fragment.MainFragment
-import com.example.viewhomework.R
 import com.example.viewhomework.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,10 +17,5 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-//        supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.fragment_view, MainFragment())
-//            .commit()
     }
 }
