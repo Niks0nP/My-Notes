@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">ViewHomework</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">My Notes</string>
+
+    <string name="note_size1">%s заметка</string>
+    <string name="note_size2">%s заметки</string>
+    <string name="note_size3">%s заметок</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_name_text">Notes</string>
     <string name="text_save_button">Создать заметку</string>

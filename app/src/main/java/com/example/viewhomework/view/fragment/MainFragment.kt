@@ -70,13 +70,13 @@ class MainFragment : Fragment() {
     private fun quantityNotes(notes: List<NotesEntity>) {
         when (notes.size) {
             1 -> {
-                binding.quantityNotes.text = "${notes.size} заметка"
+                binding.quantityNotes.text = getString(R.string.note_size1, notes.size.toString())
             }
             2,3,4 -> {
-                binding.quantityNotes.text = "${notes.size} заметки"
+                binding.quantityNotes.text = getString(R.string.note_size2, notes.size.toString())
             }
             else ->
-                binding.quantityNotes.text = "${notes.size} заметок"
+                binding.quantityNotes.text = getString(R.string.note_size3, notes.size.toString())
         }
     }
 
