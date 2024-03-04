@@ -9,3 +9,4 @@ My Notes - приложение списка дел.
 
 Ниже вы можете ознакомиться с функционалом приложения:
 
+<img src="app/src/androidTest/assets/my_notes.gif" width="250">
